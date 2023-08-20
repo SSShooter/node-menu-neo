@@ -43,6 +43,7 @@
     }
   }
   let currentNode = null
+  let currentTab: 'style' | 'image' = 'style'
   let size = null
   let color = null
   let bold = null
@@ -106,84 +107,98 @@
   <div class="node-menu">
     <div class="button-container">
       <button
+        on:click={() => {
+          currentTab = 'style'
+        }}>style</button
+      >
+      <button
         class="iconfont icon-{isExpand ? 'close' : 'menu'}"
         on:click={() => {
           isExpand = !isExpand
         }}
       />
+      <button
+        on:click={() => {
+          currentTab = 'image'
+        }}>image</button
+      >
     </div>
     {#if isExpand}
-      <div>
-        <div class="nm-fontsize-container">
-          {#each sizeList as s}
-            <button
-              class="size {size === s ? 'size-selected' : ''}"
-              data-size={s}
-              on:click={handleSizeChange}
-            >
-              <span style="font-size: {s}px;" class="iconfont icon-a" />
-            </button>
-          {/each}
-          <button
-            class="bold {bold === 'bold' ? 'size-selected' : ''}"
-            on:click={handleBold}
-          >
-            <span class="iconfont icon-B" />
-          </button>
-        </div>
-        <div class="nm-fontcolor-container">
-          {#each colorList as c}
-            <div class="split6">
+      {#if currentTab === 'style'}
+        <div>
+          <div class="nm-fontsize-container">
+            {#each sizeList as s}
               <button
-                on:click={handleColorChange}
-                class="palette {color === c ? 'selected' : ''}"
-                data-color={c}
-                style="background-color: {c};"
-              />
-            </div>
-          {/each}
+                class="size {size === s ? 'size-selected' : ''}"
+                data-size={s}
+                on:click={handleSizeChange}
+              >
+                <span style="font-size: {s}px;" class="iconfont icon-a" />
+              </button>
+            {/each}
+            <button
+              class="bold {bold === 'bold' ? 'size-selected' : ''}"
+              on:click={handleBold}
+            >
+              <span class="iconfont icon-B" />
+            </button>
+          </div>
+          <div class="nm-fontcolor-container">
+            {#each colorList as c}
+              <div class="split6">
+                <button
+                  on:click={handleColorChange}
+                  class="palette {color === c ? 'selected' : ''}"
+                  data-color={c}
+                  style="background-color: {c};"
+                />
+              </div>
+            {/each}
+          </div>
+          <div class="bg-or-font">
+            <button
+              class="font {bgOrFont === 'font' ? 'selected' : ''}"
+              on:click={() => (bgOrFont = 'font')}
+            >
+              {i18n[locale].font}
+            </button>
+            <button
+              class="background {bgOrFont === 'background' ? 'selected' : ''}"
+              on:click={() => (bgOrFont = 'background')}
+            >
+              {i18n[locale].background}
+            </button>
+          </div>
+          {i18n[locale].tag}<input
+            class="nm-tag"
+            tabindex="-1"
+            value={tags}
+            placeholder={i18n[locale].tagsSeparate}
+            on:change={(e) => handleArrayUpdate(e, 'tags')}
+          />
+          {i18n[locale].icon}<input
+            class="nm-icon"
+            tabindex="-1"
+            value={icons}
+            placeholder={i18n[locale].iconsSeparate}
+            on:change={(e) => handleArrayUpdate(e, 'icons')}
+          />
+          {i18n[locale].url}<input
+            class="nm-url"
+            tabindex="-1"
+            bind:value={currentNode.hyperLink}
+          />
+          {'Memo'}<textarea
+            class="nm-memo"
+            rows="5"
+            tabindex="-1"
+            bind:value={currentNode.memo}
+          />
         </div>
-        <div class="bg-or-font">
-          <button
-            class="font {bgOrFont === 'font' ? 'selected' : ''}"
-            on:click={() => (bgOrFont = 'font')}
-          >
-            {i18n[locale].font}
-          </button>
-          <button
-            class="background {bgOrFont === 'background' ? 'selected' : ''}"
-            on:click={() => (bgOrFont = 'background')}
-          >
-            {i18n[locale].background}
-          </button>
-        </div>
-        {i18n[locale].tag}<input
-          class="nm-tag"
-          tabindex="-1"
-          value={tags}
-          placeholder={i18n[locale].tagsSeparate}
-          on:change={(e) => handleArrayUpdate(e, 'tags')}
-        />
-        {i18n[locale].icon}<input
-          class="nm-icon"
-          tabindex="-1"
-          value={icons}
-          placeholder={i18n[locale].iconsSeparate}
-          on:change={(e) => handleArrayUpdate(e, 'icons')}
-        />
-        {i18n[locale].url}<input
-          class="nm-url"
-          tabindex="-1"
-          bind:value={currentNode.hyperLink}
-        />
-        {'Memo'}<textarea
-          class="nm-memo"
-          rows="5"
-          tabindex="-1"
-          bind:value={currentNode.memo}
-        />
-      </div>
-      <ImageSelector {mei} />
+      {/if}
+      {#if currentTab === 'image'}
+        <ImageSelector {mei} {currentNode} />
+      {/if}
     {/if}
   </div>
 {/if}

@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
-  import MindElixir from 'mind-elixir'
-  import example1 from 'mind-elixir/dist/example1'
+  import MindElixir, { type MindElixirInstance } from 'mind-elixir'
+  import example1 from 'mind-elixir/example'
   import NodeMenuNeo from './lib/index'
-  let mei
+  let mei: MindElixirInstance
   onMount(() => {
     mei = new MindElixir({
       el: '#map',

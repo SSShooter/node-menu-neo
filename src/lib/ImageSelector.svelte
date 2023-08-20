@@ -3,26 +3,25 @@
   import images from './images'
   export let mei: MindElixirInstance
   const baseUrl = 'https://undraw-mirror.vercel.app/images/'
-  let page = 0
-  let currentImages = []
+  let page = 1
+  let currentImages = images.slice((page - 1) * 10, page * 10)
   const prevPage = () => {
     page -= 1
-    currentImages = images.splice(page * 10, 10)
+    currentImages = images.slice((page - 1) * 10, page * 10)
   }
   const nextPage = () => {
     page += 1
-    currentImages = images.splice(page * 10, 10)
+    currentImages = images.slice((page - 1) * 10, page * 10)
   }
-  nextPage()
   const handleImageChange = (e) => {
     mei.reshapeNode(mei.currentNode, {
-      style: { fontSize: e.currentTarget.dataset.size },
+      image: { url: e.currentTarget.src, width: 100, height: 100 },
     })
   }
 </script>
 
 <div>
-  <div>
+  <div class="image-wrapper">
     {#each currentImages as image, i}
       <img
         class="image"
@@ -39,8 +38,14 @@
 </div>
 
 <style lang="less">
-  .image {
-    width: 100px;
-    height: 100px;
+  .image-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    .image {
+      width: 100px;
+      height: 100px;
+      display: block;
+      background: url(http://goo.gl/vyAs27) no-repeat scroll 0 0;
+    }
   }
 </style>

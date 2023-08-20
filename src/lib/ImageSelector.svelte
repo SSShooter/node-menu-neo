@@ -65,9 +65,6 @@
 
 <style lang="less">
   button {
-    border: none;
-    background: none;
-    cursor: pointer;
     margin: 18px 0;
   }
   .image-wrapper {

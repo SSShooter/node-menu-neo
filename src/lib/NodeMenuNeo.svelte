@@ -203,20 +203,31 @@
   </div>
 {/if}
 
-<style lang="less">
+<style global lang="less">
   // .mind-elixir
   .node-menu {
     position: absolute;
     right: 20px;
     top: 20px;
-    background: #fff;
+    background: var(--bgcolor);
+    color: var(--color);
     border-radius: 5px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border: #565858 1px solid;
     width: 240px;
     box-sizing: border-box;
     padding: 0 15px;
     transition: 0.3s all;
-    button {
+    :global(input) {
+      background-color: var(--main-bgcolor);
+      color: var(--main-color);
+    }
+    :global(textarea) {
+      background-color: var(--main-bgcolor);
+      color: var(--main-color);
+    }
+    :global(button) {
+      color: var(--main-color);
       border: none;
       background: none;
       cursor: pointer;
@@ -237,7 +248,7 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-        background-color: white;
+        background-color: var(--main-bgcolor);
         color: tomato;
         border-radius: 100%;
       }
@@ -260,7 +271,6 @@
       border: 1px solid #edf1f2;
       margin: auto;
     }
-    .selected,
     .palette:hover {
       box-shadow: tomato 0 0 0 2px;
       background-color: #c7e9fa;
@@ -279,10 +289,11 @@
         border-radius: 4px;
         padding: 2px 5px;
         cursor: pointer;
+        color: var(--color);
+        opacity: 0.5;
       }
       .selected {
-        background-color: tomato;
-        color: white;
+        opacity: 1;
       }
     }
   }

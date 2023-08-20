@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: resolve(__dirname, 'src/lib/NodeMenuNeo.svelte'),
+      entry: resolve(__dirname, 'src/lib/index.ts'),
       name: 'NodeMenuNeo',
       // the proper extensions will be added
       fileName: 'node-menu-neo',

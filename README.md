@@ -17,3 +17,9 @@ const mind = new MindElixir(options)
 mind.install(nodeMenu)
 mind.init(data)
 ```
+
+## Tech Stack
+
+- Svelte
+- Vite
+- Typescript

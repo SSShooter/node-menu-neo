@@ -2,7 +2,9 @@
   import { onMount } from 'svelte'
 
   import MindElixir, { type MindElixirInstance } from 'mind-elixir'
-  import example1 from 'mind-elixir/example'
+  import example from 'mind-elixir/example'
+  // import NodeMenuNeo from '../dist/node-menu-neo'
+  // import '../dist/style.css'
   import NodeMenuNeo from './lib/index'
   let mei: MindElixirInstance
   onMount(() => {
@@ -11,7 +13,7 @@
       direction: MindElixir.LEFT,
     })
     mei.install(NodeMenuNeo)
-    mei.init(example1)
+    mei.init(example)
   })
 </script>
 

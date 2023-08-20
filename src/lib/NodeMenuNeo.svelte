@@ -1,8 +1,11 @@
-<script>
+<script lang="ts">
+  import './global.less'
   import { colorList } from './colors'
   import '../iconfont/iconfont.css'
   import i18n from '../i18n'
-  export let mei
+  import ImageSelector from './ImageSelector.svelte'
+  import type { MindElixirInstance } from 'mind-elixir'
+  export let mei: MindElixirInstance
   let locale
   const sizeList = ['15', '24', '32']
 
@@ -110,74 +113,77 @@
       />
     </div>
     {#if isExpand}
-      <div class="nm-fontsize-container">
-        {#each sizeList as s}
-          <button
-            class="size {size === s ? 'size-selected' : ''}"
-            data-size={s}
-            on:click={handleSizeChange}
-          >
-            <span style="font-size: {s}px;" class="iconfont icon-a" />
-          </button>
-        {/each}
-        <button
-          class="bold {bold === 'bold' ? 'size-selected' : ''}"
-          on:click={handleBold}
-        >
-          <span class="iconfont icon-B" />
-        </button>
-      </div>
-      <div class="nm-fontcolor-container">
-        {#each colorList as c}
-          <div class="split6">
+      <div>
+        <div class="nm-fontsize-container">
+          {#each sizeList as s}
             <button
-              on:click={handleColorChange}
-              class="palette {color === c ? 'selected' : ''}"
-              data-color={c}
-              style="background-color: {c};"
-            />
-          </div>
-        {/each}
+              class="size {size === s ? 'size-selected' : ''}"
+              data-size={s}
+              on:click={handleSizeChange}
+            >
+              <span style="font-size: {s}px;" class="iconfont icon-a" />
+            </button>
+          {/each}
+          <button
+            class="bold {bold === 'bold' ? 'size-selected' : ''}"
+            on:click={handleBold}
+          >
+            <span class="iconfont icon-B" />
+          </button>
+        </div>
+        <div class="nm-fontcolor-container">
+          {#each colorList as c}
+            <div class="split6">
+              <button
+                on:click={handleColorChange}
+                class="palette {color === c ? 'selected' : ''}"
+                data-color={c}
+                style="background-color: {c};"
+              />
+            </div>
+          {/each}
+        </div>
+        <div class="bg-or-font">
+          <button
+            class="font {bgOrFont === 'font' ? 'selected' : ''}"
+            on:click={() => (bgOrFont = 'font')}
+          >
+            {i18n[locale].font}
+          </button>
+          <button
+            class="background {bgOrFont === 'background' ? 'selected' : ''}"
+            on:click={() => (bgOrFont = 'background')}
+          >
+            {i18n[locale].background}
+          </button>
+        </div>
+        {i18n[locale].tag}<input
+          class="nm-tag"
+          tabindex="-1"
+          value={tags}
+          placeholder={i18n[locale].tagsSeparate}
+          on:change={(e) => handleArrayUpdate(e, 'tags')}
+        />
+        {i18n[locale].icon}<input
+          class="nm-icon"
+          tabindex="-1"
+          value={icons}
+          placeholder={i18n[locale].iconsSeparate}
+          on:change={(e) => handleArrayUpdate(e, 'icons')}
+        />
+        {i18n[locale].url}<input
+          class="nm-url"
+          tabindex="-1"
+          bind:value={currentNode.hyperLink}
+        />
+        {'Memo'}<textarea
+          class="nm-memo"
+          rows="5"
+          tabindex="-1"
+          bind:value={currentNode.memo}
+        />
       </div>
-      <div class="bg-or-font">
-        <button
-          class="font {bgOrFont === 'font' ? 'selected' : ''}"
-          on:click={() => (bgOrFont = 'font')}
-        >
-          {i18n[locale].font}
-        </button>
-        <button
-          class="background {bgOrFont === 'background' ? 'selected' : ''}"
-          on:click={() => (bgOrFont = 'background')}
-        >
-          {i18n[locale].background}
-        </button>
-      </div>
-      {i18n[locale].tag}<input
-        class="nm-tag"
-        tabindex="-1"
-        value={tags}
-        placeholder={i18n[locale].tagsSeparate}
-        on:change={(e) => handleArrayUpdate(e, 'tags')}
-      />
-      {i18n[locale].icon}<input
-        class="nm-icon"
-        tabindex="-1"
-        value={icons}
-        placeholder={i18n[locale].iconsSeparate}
-        on:change={(e) => handleArrayUpdate(e, 'icons')}
-      />
-      {i18n[locale].url}<input
-        class="nm-url"
-        tabindex="-1"
-        bind:value={currentNode.hyperLink}
-      />
-      {'Memo'}<textarea
-        class="nm-memo"
-        rows="5"
-        tabindex="-1"
-        bind:value={currentNode.memo}
-      />
+      <ImageSelector {mei} />
     {/if}
   </div>
 {/if}
@@ -200,18 +206,10 @@
       background: none;
       cursor: pointer;
     }
-    &.close {
-      height: 30px;
-      width: 46px;
-      overflow: hidden;
-    }
     .button-container {
       padding: 6px 0;
       text-align: center;
       //   border-bottom: 1px solid #ccc;
-    }
-    #nm-tag {
-      margin-top: 20px;
     }
     .nm-fontsize-container {
       display: flex;
@@ -231,16 +229,6 @@
     }
     .nm-fontcolor-container {
       margin-bottom: 10px;
-    }
-    input,
-    textarea {
-      background: #f7f9fa;
-      border: 1px solid #dce2e6;
-      border-radius: 3px;
-      padding: 5px;
-      margin: 10px 0;
-      width: 100%;
-      box-sizing: border-box;
     }
     textarea {
       resize: none;
@@ -267,9 +255,6 @@
       border-color: tomato;
       fill: white;
       color: white !important;
-      svg {
-        color: #fff;
-      }
     }
     .bg-or-font {
       text-align: center;

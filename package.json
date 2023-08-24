@@ -26,7 +26,8 @@
     "svelte-check": "^3.4.4",
     "tslib": "^2.6.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.0"
+    "vite": "^4.4.0",
+    "vite-plugin-css-injected-by-js": "^3.3.0"
   },
   "dependencies": {
     "less": "^4.1.3",

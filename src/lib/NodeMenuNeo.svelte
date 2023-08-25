@@ -236,6 +236,9 @@
       padding: 6px 0;
       text-align: center;
       //   border-bottom: 1px solid #ccc;
+      button {
+        width: 30%;
+      }
     }
     .nm-fontsize-container {
       display: flex;

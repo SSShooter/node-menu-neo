@@ -11,7 +11,6 @@ npm i @mind-elixir/node-menu-neo
 ```javascript
 import MindElixir from 'mind-elixir'
 import nodeMenu from '@mind-elixir/node-menu-neo'
-import '@mind-elixir/node-menu-neo/dist/style.css'
 
 const mind = new MindElixir(options)
 mind.install(nodeMenu)
@@ -23,3 +22,7 @@ mind.init(data)
 - Svelte
 - Vite
 - Typescript
+
+## Thanks
+
+- https://undraw.co/illustrations

@@ -109,7 +109,7 @@
       <button
         on:click={() => {
           currentTab = 'style'
-        }}>style</button
+        }}>Style</button
       >
       <button
         class="iconfont icon-{isExpand ? 'close' : 'menu'}"
@@ -120,7 +120,7 @@
       <button
         on:click={() => {
           currentTab = 'image'
-        }}>image</button
+        }}>Sticker</button
       >
     </div>
     {#if isExpand}
@@ -218,6 +218,7 @@
     box-sizing: border-box;
     padding: 0 15px;
     transition: 0.3s all;
+    font-size: 0.8rem;
     :global(input) {
       background-color: var(--main-bgcolor);
       color: var(--main-color);
@@ -233,7 +234,7 @@
       cursor: pointer;
     }
     .button-container {
-      padding: 6px 0;
+      padding: 12px 0;
       text-align: center;
       //   border-bottom: 1px solid #ccc;
       button {

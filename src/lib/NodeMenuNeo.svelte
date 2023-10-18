@@ -93,8 +93,6 @@
         } else {
           icons = ''
         }
-        // urlInput.value = nodeObj.hyperLink || ''
-        // memoInput.value = nodeObj.memo || ''
       })
       mei.bus.addListener('unselectNode', function () {
         currentNode = null
@@ -187,6 +185,11 @@
             class="nm-url"
             tabindex="-1"
             bind:value={currentNode.hyperLink}
+            on:blur={() => {
+              mei.reshapeNode(mei.currentNode, {
+                hyperLink: currentNode.hyperLink,
+              })
+            }}
           />
           {'Memo'}<textarea
             class="nm-memo"
